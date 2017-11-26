@@ -1,0 +1,26 @@
+{
+  "name" : "Page Gallery Slideshow",
+  "version" : "1.0.1",
+  "description" : "View images in page as slideshow with filtering",
+  "background" : { "scripts": ["background.js"] },
+  "permissions" : [
+    "contextMenus",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+   ],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["jquery.min.js", "contentscript.js"]
+    }
+  ],
+  "web_accessible_resources": ["slidespage.html", "styles.css"],
+  "minimum_chrome_version" : "6.0.0.0",
+  "icons" : {
+    "16" : "imageinfo-16.png",
+    "48" : "imageinfo-48.png",
+    "128" : "imageinfo-128.png"
+  },
+  "manifest_version": 2
+}
