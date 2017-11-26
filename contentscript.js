@@ -43,6 +43,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     $.get(chrome.extension.getURL('/slidespage.html'), function(data) {
 		
         var $origBody = $("body");
+        $origBody.css('overflow', 'hidden');
 
         var $slidespage = $($.parseHTML(data));
 	    $slidespage.appendTo($origBody);
