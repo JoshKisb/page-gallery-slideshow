@@ -34,23 +34,39 @@ function loadSlidepageJS() {
     });
 }
 
+
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
    if (request.todo == "showGalleryPage") {
 
     // add slides page to body
     $.get(chrome.extension.getURL('/slidespage.html'), function(data) {
 		
+        var $origBody = $("body");
+
         var $slidespage = $($.parseHTML(data));
-	    $slidespage.appendTo('body');
+	    $slidespage.appendTo($origBody);
 
         loadSlidepageJS();
         
 	    $slidespage.find('#imagevi-img-box img').attr("src", clickedEl.src);
+
+        //get similar img divs
+        var allImgages = $origBody.find("img");
+        var $sidebarImageDiv = $slidespage.find(".imgvi-sidebar-images");
+
+        allImgages.each(function() {
+            var sidebarImg = $('<img />', { 
+                src: $(this).attr("src"), 
+                alt: $(this).attr("alt")
+            });
+            $sidebarImageDiv.append(sidebarImg)
+        });
+        //load slidespage with thumbs
+        //get larger/full size images
 	});
 
-    //get similar img divs
-    //load slidespage with thumbs
-    //get larger/full size images
+    
     
    }
 })
