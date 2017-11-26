@@ -1,0 +1,173 @@
+*, *:before, *:after
+{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html, body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#imgvi-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #212121;
+	transition: opacity 500ms;
+	z-index: 9999999;
+}
+
+#imgvi-sidebar .sidebar-title {
+	-webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+.imgvi-sidebar-images {
+	background-color: #000;
+	margin: 14px 10px 5px; 
+	min-height: 250px
+}
+
+.imgvi-sidebar-images img { 
+	width: 125px;
+	height: 125px;
+	margin: 10px;
+}
+
+.imgvi-sidebar-title h2 {
+	height: 56px;
+    line-height: 56px;
+    margin: 0px 16px 0;
+    padding: 4px 2px 0;
+    font-family: Roboto,arial,sans-serif;
+    font-size: 16px;
+    text-transform: none;
+}
+
+#imagevi-img-box {
+	height: 100%;
+	margin: 0 auto;
+}
+#imagevi-img-box img {
+	height: 100%;
+}
+
+#imgvi-container {
+	margin-right: 344px;
+    transition: margin-right .5s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+.imgvi-content {
+	padding-top: 65px;
+	padding-bottom: 10px;
+	width: 100%;
+	height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+
+}
+
+#imgvi-sidebar {
+    height: 100%; /* 100% Full-height */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #323232;
+    width: 344px;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+	color: #ffffff;
+}
+
+/* The navigation menu links */
+#imgvi-sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+#imgvi-sidebar a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+#imgvi-sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    #imgvi-sidebar {padding-top: 15px;}
+    #imgvi-sidebar a {font-size: 18px;}
+}
+
+.imgvi-topbar {
+	position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 3;
+    background: linear-gradient(to bottom,rgba(0,0,0,0.65) 0%,transparent 100%);
+    height: 56px;
+    padding: 0 0 16px 0;
+    width: auto;
+}
+
+.imgvi-topbar h1{
+	display: inline-block;
+	line-height: 14px;
+    color: #fff;
+    font-size: 30px;
+}
+
+.menu-btn {
+	z-index: 5;
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 30px;
+    line-height: 50px;
+    width: 35px;
+    -webkit-transform: scale(1.3,1);
+    -moz-transform: scale(1.3,1);
+    -ms-transform: scale(1.3,1);
+    -o-transform: scale(1.3,1);
+    transform: scale(1.3,1);
+    text-decoration: none;
+    text-align: center;
+    height: 50px;
+    margin-top: 10px;
+}
+
+

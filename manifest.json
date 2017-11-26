@@ -12,10 +12,16 @@
   "content_scripts": [
     {
       "matches": ["https://*/*"],
+      "css": ["styles.css"],
       "js": ["jquery.min.js", "contentscript.js"]
     }
   ],
-  "web_accessible_resources": ["slidespage.html", "styles.css"],
+  "web_accessible_resources": [
+    "slidespage.html", 
+    "styles.css", 
+    "jquery.min.js", 
+    "loading.gif"
+  ],
   "minimum_chrome_version" : "6.0.0.0",
   "icons" : {
     "16" : "imageinfo-16.png",
