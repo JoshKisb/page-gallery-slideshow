@@ -11,7 +11,12 @@
 					</div>
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 					
-					Images Filter: 
+					<div class="imgvi-formgroup">
+						<label for="filter">Images Filter: </label>
+						<select name="imgvi-filter" id="filter">
+							<option value="all">All Images</option>
+						</select>
+					</div>
 				</div>
 				
 				<div class="imgvi-sidebar-images"></div>
@@ -30,7 +35,22 @@
 			
 			<div class="imgvi-content">
 				<div id="imagevi-img-box">
-					<img src="">
+					<div id="imgvi-display"></div>
+
+					<div id="imgvi-commands">
+						<!-- Previous -->
+						<svg class="icon" id="imgvi-prev" height="32px" enable-background="new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/><g id="arrow_x5F_left_x5F_alt1"><path d="M16,32c8.836,0,16-7.164,16-15.998C32,7.164,24.836,0,16,0S0,7.164,0,16.002   C0,24.836,7.164,32,16,32z M15.969,8v6.002H24V18h-8.031v5.969L8,16.002L15.969,8z" style="/*fill:#4E4E50;*/"/></g></svg>
+						
+						<!-- Play -->
+						<svg class="icon" id="imgvi-play" height="32px" enable-background="new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/><g id="play_x5F_alt"><path d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M10,24V8l16.008,8L10,24z   " style="/*fill:#4E4E50;*/"/></g></svg>
+						
+						<!-- Pause -->
+						<svg class="icon" id="imgvi-pause" style="display: none" height="16px" version="1.1" viewBox="0 0 16 16" width="16px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><defs/><g fill="none" fill-rule="evenodd" id="Icons with numbers" stroke="none" stroke-width="1"><g fill="#000000" id="Group" transform="translate(-288.000000, -528.000000)"><path d="M296,544 C291.581722,544 288,540.418278 288,536 C288,531.581722 291.581722,528 296,528 C300.418278,528 304,531.581722 304,536 C304,540.418278 300.418278,544 296,544 L296,544 Z M299,532 L297,532 L297,536 L297,540 L299,540 L299,532 L299,532 Z M295,532 L293,532 L293,536 L293,540 L295,540 L295,532 L295,532 Z M295,532" id="Shape copy 3"/></g></g></svg>
+						
+						<!-- Next -->
+						<svg class="icon" id="imgvi-next" height="32px" enable-background="new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/><g id="arrow_x5F_right_x5F_alt1"><path d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M16.031,24v-6H8v-4h8.031   V8.031L24,16L16.031,24z" style="/*fill:#4E4E50;*/"/></g></svg>
+						
+					</div>
 				</div>
 
 			</div> 
