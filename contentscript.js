@@ -1,7 +1,10 @@
 var clickedEl = null;
 var filteredImages = [];
 var currentImg = 0;
+var selectedImg = 0;
 var slideInterval;
+var allImages = [];
+
 
 document.addEventListener("contextmenu", function(event){
     
@@ -9,12 +12,34 @@ document.addEventListener("contextmenu", function(event){
 
 }, true);
 
+
+function AppendfitsFilter(imgFilter, img) {
+    var $sidebarImageDiv = $(".imgvi-sidebar-images");
+    var fitsFilter = false;
+
+
+    if (imgFilter == "all")
+        fitsFilter = true;
+    else if (imgFilter == "type") {
+        fitsFilter = (img.attr('data-mimetype') == allImages[selectedImg].attr('data-mimetype'));
+    }
+
+    if (fitsFilter) {
+        filteredImages.push(img);
+        $sidebarImageDiv.append(img);
+    }
+
+    
+}
+
 function loadSlidepageJS() {
 
-    $("#imagevi-img-box img").attr('src', chrome.extension.getURL('/loading.gif'));
+    $("#imagevi-img-box img")
+    .css("background-image", 'url('+chrome.extension.getURL('/loading.gif')+')');
 
     var sidenav = $("#imgvi-sidebar");
     var container = $("#imgvi-container")
+    var $sidebarImageDiv = $(".imgvi-sidebar-images");
 
 
     function openNav() {
@@ -34,8 +59,9 @@ function loadSlidepageJS() {
             return false;
 
         currentImg++;
+        console.log(filteredImages[currentImg])
         $('#imagevi-img-box #imgvi-display')
-            .css("background-image", 'url('+filteredImages[currentImg].src+')');
+            .css("background-image", 'url('+filteredImages[currentImg][0].src+')');
 
     }
 
@@ -45,7 +71,7 @@ function loadSlidepageJS() {
 
         currentImg--;
         $('#imagevi-img-box #imgvi-display')
-            .css("background-image", 'url('+filteredImages[currentImg].src+')');
+            .css("background-image", 'url('+filteredImages[currentImg][0].src+')');
 
     }
 
@@ -87,6 +113,18 @@ function loadSlidepageJS() {
         clearInterval(slideInterval);
 
     });
+
+    $('#imgvi-filter').on('change', function(){
+
+        filteredImages = [];
+        $sidebarImageDiv.empty();
+        var imgFilter = $(this).val();
+
+        $.each(allImages, function(index, el){
+            AppendfitsFilter(imgFilter, el)
+        });
+        
+    });
 }
 
 
@@ -108,21 +146,36 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	    $slidespage.find('#imagevi-img-box #imgvi-display')
             .css("background-image", 'url('+clickedEl.src+')');
 
-        //get similar img divs
-        var allImgages = $origBody.find("img");
-        var $sidebarImageDiv = $slidespage.find(".imgvi-sidebar-images");
+  
+        var allImg = $origBody.find("img");
+        allImages = Array(allImg.length).fill(null);
+        var currFilter = $('#imgvi-filter').val();
 
-        filteredImages = allImgages;
+        allImg.each(function(index) {
 
-        filteredImages.each(function(index) {
-            var sidebarImg = $('<img />', { 
-                src: $(this).attr("src"), 
-                alt: $(this).attr("alt")
+            var imgsrc = $(this).attr("src");
+            var imgAlt = $(this).attr("alt");
+
+            if (clickedEl == allImg[index]) 
+                selectedImg = index;
+
+            fetch(imgsrc).then(function(response){
+                return response.blob();
+            }).then(function(myBlob) {
+        
+                var sidebarImg = $('<img />', { 
+                    src: imgsrc, 
+                    alt: imgAlt,
+                    "data-mimetype": myBlob.type,
+                });
+
+                allImages[index] = sidebarImg;
+                AppendfitsFilter(currFilter, sidebarImg);
             });
-            $sidebarImageDiv.append(sidebarImg);
 
-            if (clickedEl == filteredImages[index]) currentImg = index;
         });
+
+        
 
         //get larger/full size images
 	});
