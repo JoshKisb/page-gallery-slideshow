@@ -138,6 +138,25 @@
     margin-left: 50px;
 }
 
+#imgvi-close {
+    position: relative;
+    display: inline-block;
+    padding: 5px 12px 2px;
+    cursor: pointer;
+    z-index: 15;
+}
+
+#imgvi-close svg {
+    fill: #fff;
+    transition: fill-opacity 0.5s ease;
+    margin: 15px 10px 5px;
+    fill-opacity: 0.7;
+}
+
+#imgvi-close:hover svg {
+    fill-opacity: 1;
+}
+
 
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -172,6 +191,8 @@
     margin-right: 20px;
     cursor: pointer;
     color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
     font-size: 30px;
     line-height: 50px;
     width: 35px;
@@ -184,6 +205,11 @@
     text-align: center;
     height: 50px;
     margin-top: 10px;
+}
+
+.menu-btn:hover {
+    text-decoration: none;
+    opacity: 1;
 }
 
 .imgvi-formgroup input, .imgvi-formgroup select {

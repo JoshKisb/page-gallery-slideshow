@@ -4,6 +4,7 @@ var currentImg = 0;
 var selectedImg = 0;
 var slideInterval;
 var allImages = [];
+var $slidespage;
 
 
 document.addEventListener("contextmenu", function(event){
@@ -13,23 +14,25 @@ document.addEventListener("contextmenu", function(event){
 }, true);
 
 
-function AppendfitsFilter(imgFilter, img) {
-    var $sidebarImageDiv = $(".imgvi-sidebar-images");
+function fitsFilter(imgFilter, img) {
+    
     var fitsFilter = false;
-
 
     if (imgFilter == "all")
         fitsFilter = true;
-    else if (imgFilter == "type") {
+
+    else if (imgFilter == "type") 
         fitsFilter = (img.attr('data-mimetype') == allImages[selectedImg].attr('data-mimetype'));
-    }
 
-    if (fitsFilter) {
-        filteredImages.push(img);
-        $sidebarImageDiv.append(img);
-    }
-
+    else if (imgFilter == "url") 
+        fitsFilter = (img.attr('data-baseurl') == allImages[selectedImg].attr('data-baseurl'));
     
+    else if (imgFilter == "disp_size") {
+        fitsFilter = (img.attr('data-width') == allImages[selectedImg].attr('data-width') 
+            && img.attr('data-height') == allImages[selectedImg].attr('data-height'));
+    }
+
+    return fitsFilter;  
 }
 
 function loadSlidepageJS() {
@@ -121,9 +124,28 @@ function loadSlidepageJS() {
         var imgFilter = $(this).val();
 
         $.each(allImages, function(index, el){
-            AppendfitsFilter(imgFilter, el)
+            if (fitsFilter(imgFilter, el)) {
+                filteredImages.push(el);
+                $sidebarImageDiv.append(el);
+            }
         });
         
+    });
+
+    $('#imgvi-close').on('click', function(){
+        $slidespage.fadeOut(1500, function() { 
+            $(this).remove(); 
+
+            $('html').css('overflow', 'scroll');
+            $('body').unbind('touchmove');
+
+            chrome.runtime.sendMessage(
+                {todo: 'reEnableContextMenu'}, 
+                function(response){}
+            );
+
+
+        });
     });
 }
 
@@ -132,13 +154,19 @@ function loadSlidepageJS() {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
    if (request.todo == "showGalleryPage") {
 
+    
+
     // add slides page to body
     $.get(chrome.extension.getURL('/slidespage.html'), function(data) {
 		
         var $origBody = $("body");
-        $origBody.css('overflow', 'hidden');
+        $('html').css('overflow', 'hidden');
+        $origBody.bind('touchmove', function(e) {
+            e.preventDefault()
+        });
 
-        var $slidespage = $($.parseHTML(data));
+        
+        $slidespage = $($.parseHTML(data));
 	    $slidespage.appendTo($origBody);
 
         loadSlidepageJS();
@@ -150,6 +178,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var allImg = $origBody.find("img");
         allImages = Array(allImg.length).fill(null);
         var currFilter = $('#imgvi-filter').val();
+        var $sidebarImageDiv = $(".imgvi-sidebar-images");
 
         allImg.each(function(index) {
 
@@ -167,10 +196,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                     src: imgsrc, 
                     alt: imgAlt,
                     "data-mimetype": myBlob.type,
+                    "data-baseurl": imgsrc.substring(0, imgsrc.lastIndexOf('/')),
+                    "data-width": allImg[index].width,
+                    "data-height": allImg[index].height,
                 });
 
                 allImages[index] = sidebarImg;
-                AppendfitsFilter(currFilter, sidebarImg);
+                if (fitsFilter(currFilter, sidebarImg)){
+                    console.log(currFilter)
+                    filteredImages.push(sidebarImg);
+                    $sidebarImageDiv.append(sidebarImg);
+                }
             });
 
         });
