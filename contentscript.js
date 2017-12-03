@@ -2,7 +2,7 @@ var clickedEl = null;
 var filteredImages = [];
 var currentImg = 0;
 var selectedImg = 0;
-var slideInterval;
+var slideInterval = null;
 var allImages = [];
 var $slidespage;
 
@@ -33,6 +33,32 @@ function fitsFilter(imgFilter, img) {
     }
 
     return fitsFilter;  
+}
+
+function setKeyboardShortcuts(event) {
+    console.log("Key ", event.which, " pressed")
+    if (event.which == 39) {
+        event.preventDefault();
+        $('#imgvi-next').trigger('click');
+    }
+
+    if (event.which == 37) {
+        event.preventDefault();
+        $('#imgvi-prev').trigger('click');
+    }
+
+    if (event.which == 32) {
+        event.preventDefault();
+        if (slideInterval) 
+            $('#imgvi-pause').trigger('click');
+        else
+            $('#imgvi-play').trigger('click');
+    }
+
+    if (event.which == 27) {
+        event.preventDefault();
+        $('#imgvi-close').trigger('click');
+    }
 }
 
 function loadSlidepageJS() {
@@ -105,7 +131,7 @@ function loadSlidepageJS() {
                 currentImg = -1;
                 showNext();
             }
-        }, 5000);
+        }, 4000);
     });
 
     $('#imgvi-pause').on('click', function() { 
@@ -114,6 +140,7 @@ function loadSlidepageJS() {
         $('#imgvi-play').show();
 
         clearInterval(slideInterval);
+        slideInterval = null;
 
     });
 
@@ -138,15 +165,17 @@ function loadSlidepageJS() {
 
             $('html').css('overflow', 'scroll');
             $('body').unbind('touchmove');
+            $(document).off('keydown', setKeyboardShortcuts);
 
             chrome.runtime.sendMessage(
                 {todo: 'reEnableContextMenu'}, 
                 function(response){}
             );
 
-
         });
     });
+
+    $(document).on('keydown', setKeyboardShortcuts);
 }
 
 
@@ -203,7 +232,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
                 allImages[index] = sidebarImg;
                 if (fitsFilter(currFilter, sidebarImg)){
-                    console.log(currFilter)
                     filteredImages.push(sidebarImg);
                     $sidebarImageDiv.append(sidebarImg);
                 }
