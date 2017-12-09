@@ -50,6 +50,7 @@
     font-family: Roboto,arial,sans-serif;
     font-size: 16px;
     text-transform: none;
+    color: #ffffff !important;
 }
 
 #imagevi-img-box {
@@ -98,7 +99,7 @@
     width: 344px;
     overflow-x: hidden; 
     transition: 0.5s; 
-	color: #ffffff;
+	color: #ffffff !important;
     font-family: Arial;
     font-weight: 400;
     font-stretch: normal;
@@ -184,13 +185,13 @@
     font-size: 30px;
 }
 
-.menu-btn {
+a.imgvi-menu-btn {
 	z-index: 5;
     display: inline-block;
     float: right;
     margin-right: 20px;
     cursor: pointer;
-    color: #fff;
+    color: #fff !important;
     opacity: 0.7;
     transition: opacity 0.5s ease;
     font-size: 30px;
@@ -207,18 +208,36 @@
     margin-top: 10px;
 }
 
-.menu-btn:hover {
+a.imgvi-menu-btn:hover {
     text-decoration: none;
     opacity: 1;
 }
 
-.imgvi-formgroup input, .imgvi-formgroup select {
+.imgvi-formgroup {
+    min-height: 30px;
+    display: flex;
+    margin-left: 12px;
+    margin-bottom: 5px;
+}
+
+.imgvi-formgroup input[type=checkbox] {
+    min-width: 15px;
+    border-radius: 5px;
+    height: 15px;
+    margin: 7px 10px 5px 5px;
+}
+
+.imgvi-formgroup > * {
+    align-self: center;
+}
+
+.imgvi-formgroup input[type=text], .imgvi-formgroup select {
 	display: inline-block;
     min-height: 20px;
     min-width: 120px;
     padding: 5px 10px 5px 5px;
     border-radius: 3px;
-    margin: 5px;
+    margin: 5px 10px;
     color: #000;
 } 
 
@@ -257,7 +276,7 @@
     opacity: 1;
 }
 
-#commands.dark, #popup.dark, #zoom-info.dark {
+#imgvi-commands.dark, #popup.dark, #zoom-info.dark {
     background-color: rgba(92, 92, 92, 0.85);
     border-width: 1px;
     border-style: solid;
@@ -265,8 +284,7 @@
     border-image: initial;
 }
 
-#commands, #zoom-info {
-    
+#imgvi-commands, #zoom-info {
     position: relative;
     right: 5px;
     bottom: 10px;
@@ -281,4 +299,109 @@
 .dark {
     background-position-y: 16px;
     color: rgb(204, 204, 204);
+}
+
+.imgvi-switch {
+    height: 22px;
+    width: 60px;
+    position: relative;
+    display: block;
+    vertical-align: top;
+    padding: 3px;
+    margin: 0 10px 0px 5px;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    box-sizing:content-box;
+}
+.imgvi-switch .switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    box-sizing:content-box;
+}
+.imgvi-switch .switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    box-sizing:content-box;
+}
+.imgvi-switch .switch-label:before, .imgvi-switch .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing:content-box;
+}
+.imgvi-switch .switch-label:before {
+    content: attr(data-off);
+    right: 11px;
+    color: #aaaaaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+.imgvi-switch .switch-label:after {
+    content: attr(data-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+}
+.imgvi-switch .switch-input:checked ~ .switch-label {
+    background: /*#E1B42B;*/ #1AA822;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.imgvi-switch .switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.imgvi-switch .switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+.imgvi-switch .switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+    background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.imgvi-switch .switch-handle:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+.imgvi-switch .switch-input:checked ~ .switch-handle {
+    left: 42px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+ 
+/* Transition
+========================== */
+.imgvi-switch .switch-label, .imgvi-switch .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
 }

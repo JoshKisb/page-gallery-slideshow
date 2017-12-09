@@ -1,14 +1,17 @@
+var menuId;
+
 function getClickHandler() {
   return function(info, tab) {
 
-  	chrome.contextMenus.removeAll(function(){});
+  	//chrome.contextMenus.remove(menuId);
+  	console.log("received click");
     chrome.tabs.sendMessage(tab.id,{todo: "showGalleryPage"}, function(response) {});
     
   };
 };
 
 function createExtContextMenu() {
-	chrome.contextMenus.create({
+	return chrome.contextMenus.create({
 	  "title" : "View in Image Gallery Slideshow",
 	  "type" : "normal",
 	  "contexts" : ["image"],
@@ -16,14 +19,9 @@ function createExtContextMenu() {
 	});
 }
 
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
 
-	if (msg.todo == 'reEnableContextMenu') 
-		createExtContextMenu();	   
-
-});
-
-createExtContextMenu();
+menuId = createExtContextMenu();
+console.log(menuId)
 
 
 
