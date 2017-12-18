@@ -1,5 +1,3 @@
-var menuId;
-
 function getClickHandler() {
   return function(info, tab) {
 
@@ -12,16 +10,15 @@ function getClickHandler() {
 
 function createExtContextMenu() {
 	return chrome.contextMenus.create({
-	  "title" : "View in Image Gallery Slideshow",
+	  "title" : "View with Image Gallery Slideshow",
 	  "type" : "normal",
 	  "contexts" : ["image"],
 	  "onclick" : getClickHandler()
 	});
 }
 
+createExtContextMenu();
 
-menuId = createExtContextMenu();
-console.log(menuId)
 
 
 
