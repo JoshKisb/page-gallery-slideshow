@@ -36,10 +36,12 @@
     content: "";
  }
 
-.imgvi-sidebar-images img { 
+.imgvi-sidebar-images div { 
 	width: 125px;
 	height: 125px;
 	margin: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .imgvi-sidebar-title h2 {

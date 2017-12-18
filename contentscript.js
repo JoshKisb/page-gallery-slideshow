@@ -6,8 +6,7 @@ var ImgGalSlideshow = {
     selectedImg: 0,
     slideInterval: null,
     allImages: [],
-    fullsizeImages: [],
-    $slidespage: null,   
+    fullsizeImages: [],  
     loadfull: false,
 
     init: function(data) {
@@ -40,8 +39,7 @@ var ImgGalSlideshow = {
         allImg.each(function(index) {
 
             let imgsrc = $(this).attr("src");
-            let imgAlt = $(this).attr("alt");
-
+            
             let anchor = $(this).closest("a");
             let position = index;
             let url = null;
@@ -55,9 +53,9 @@ var ImgGalSlideshow = {
                 return response.blob();
             }).then(function(myBlob) {
         
-                let sidebarImg = $('<img />', { 
-                    src: imgsrc, 
-                    alt: imgAlt,
+                let sidebarImg = $('<div />', { 
+                    "data-src": imgsrc,
+                    "style": 'background-image: url('+ imgsrc +')',
                     "data-mimetype": myBlob.type,
                     "data-baseurl": imgsrc.substring(0, imgsrc.lastIndexOf('/')),
                     "data-width": allImg[position].width,
@@ -65,6 +63,8 @@ var ImgGalSlideshow = {
                     "data-position": position,
                     "data-fullsize-url": url, 
                 });
+
+    
 
                 imgGal.allImages[position] = sidebarImg;
                 if (imgGal.fitsFilter(currFilter, sidebarImg)){
@@ -208,17 +208,23 @@ var ImgGalSlideshow = {
     },
 
     filterImages: function(){
-
+        let currImage = this.filteredImages[this.currentImg]; 
+        this.currentImg = 0;
         this.filteredImages = [];
         this.$sidebarImageDiv.empty();
         var imgFilter = this.$imgFilter.val();
 
         $.each(this.allImages, function(index, el){
             if (this.fitsFilter(imgFilter, el)) {
-                this.filteredImages.push(el);
+                let len = this.filteredImages.push(el);
                 this.$sidebarImageDiv.append(el);
+
+                if (currImage == el)
+                    this.currentImg = (len -1);
             }
         }.bind(this));
+
+        this.displayImage();
         
     },
 
@@ -250,7 +256,7 @@ var ImgGalSlideshow = {
                 .css("background-image", 'url('+fullimage.attr('src')+')');
         } else {
             this.$imgDisplay
-                .css("background-image", 'url('+currImage.attr('src')+')');
+                .css("background-image", 'url('+currImage.data('src')+')');
         }
     },
 
