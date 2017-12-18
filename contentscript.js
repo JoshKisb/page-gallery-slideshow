@@ -103,7 +103,6 @@ var ImgGalSlideshow = {
             $(this).hide();
             $('#imgvi-pause').show();
             
-
             imgGal.slideInterval = setInterval(function() {
                 if (imgGal.showNext() == false) {
                     imgGal.currentImg = -1;
@@ -134,7 +133,7 @@ var ImgGalSlideshow = {
 
         })
 
-        $('#imgvi-close').on('click', this.exit);
+        $('#imgvi-close').on('click', this.exit.bind(imgGal));
 
         $(document).on('keydown', this.setKeyboardShortcuts.bind(imgGal));
     },
