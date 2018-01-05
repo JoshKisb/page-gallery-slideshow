@@ -108,7 +108,7 @@ var ImgGalSlideshow = {
                     imgGal.currentImg = -1;
                     imgGal.showNext();
                 }
-            }, 4000);
+            }, 3200);
         });
 
         $('#imgvi-pause').on('click', function() { 
@@ -133,9 +133,9 @@ var ImgGalSlideshow = {
 
         })
 
-        $('#imgvi-close').on('click', this.exit.bind(imgGal));
+        $('#imgvi-close').on('click', this.exit.bind(this));
 
-        $(document).on('keydown', this.setKeyboardShortcuts.bind(imgGal));
+        $(document).on('keydown', this.setKeyboardShortcuts.bind(this));
     },
 
     exit: function() {
@@ -145,7 +145,7 @@ var ImgGalSlideshow = {
             $('body').unbind('touchmove');
         });
 
-        $(document).off('keydown', this.setKeyboardShortcuts);
+        $(document).off('keydown', this.setKeyboardShortcuts.bind(this));
     },
     
     setKeyboardShortcuts: function(event) {

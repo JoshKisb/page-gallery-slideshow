@@ -147,6 +147,7 @@
     padding: 5px 12px 2px;
     cursor: pointer;
     z-index: 15;
+    float: left;
 }
 
 #imgvi-close svg {

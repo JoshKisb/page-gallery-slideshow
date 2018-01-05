@@ -10,7 +10,7 @@ function getClickHandler() {
 
 function createExtContextMenu() {
 	return chrome.contextMenus.create({
-	  "title" : "View with Image Gallery Slideshow",
+	  "title" : "View with Page Gallery Slideshow",
 	  "type" : "normal",
 	  "contexts" : ["image"],
 	  "onclick" : getClickHandler()
